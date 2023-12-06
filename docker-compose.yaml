@@ -8,7 +8,7 @@ services:
     hostname: namenode
 
 # Сначала запусти меня
-#    command: ["hdfs", "namenode", "-format", "-force"]
+    # command: ["hdfs", "namenode", "-format", "-force"]
 # А уже потом спокойно запускай меня
     command: ["hdfs", "namenode"]
     env_file:
@@ -29,6 +29,20 @@ services:
       - ./hadoop.env
     ports:
       - 9864:9864
+    volumes:
+      - hdfs1:/tmp/hadoop-hadoop
+      - ./hadoop_conf/etc:/opt/hadoop/etc
+
+  datanode2:
+    build:
+      context: hadoop/.
+      target: build_hadoop
+    hostname: datanode2
+    command: ["hdfs", "datanode"]
+    env_file:
+      - ./hadoop.env
+    ports:
+      - 9865:9864
     volumes:
       - hdfs1:/tmp/hadoop-hadoop
       - ./hadoop_conf/etc:/opt/hadoop/etc
@@ -79,7 +93,7 @@ services:
       target: hive_hadoop
     hostname: metastore
     # Сначала запусти меня
-    #    command: ["schematool", "--dbType", "postgres", "--initSchema"]
+    # command: ["schematool", "--dbType", "postgres", "--initSchema"]
     # А уже потом спокойно запускай меня
     command: [ "hive", "--service", "metastore" ]
     environment:
@@ -120,6 +134,7 @@ services:
     volumes:
       - ./hadoop_conf/etc:/opt/hadoop/etc
       - ./notebooks:/opt/notebooks
+      - ./data/:/opt/data
     command: ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0"]
 
 #  Вот этого монстра запускай на свой страх и риск
