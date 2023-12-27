@@ -95,7 +95,7 @@ services:
     # Сначала запусти меня
     # command: ["schematool", "--dbType", "postgres", "--initSchema"]
     # А уже потом спокойно запускай меня
-    command: [ "hive", "--service", "metastore" ]
+    command: [ "hive", "--service", "metastore"]
     environment:
       - HIVE_SERVER2_THRIFT_PORT=10000
     ports:
@@ -137,19 +137,19 @@ services:
       - ./data/:/opt/data
     command: ["jupyter", "notebook", "--allow-root", "--ip", "0.0.0.0"]
 
-#  Вот этого монстра запускай на свой страх и риск
-#  zeppelin:
-#    build:
-#      context: hadoop/.
-#      target: zeppelin_hadoop
-#    env_file:
-#      - ./hadoop.env
-#    ports:
-#      - 8080:8080
-#    volumes:
-#      - ./hadoop_conf/etc:/opt/hadoop/etc
-#      - ./hive_conf:/opt/hive/conf
-#    command: ["bash", "/opt/zeppelin/bin/zeppelin.sh"]
+# #  Вот этого монстра запускай на свой страх и риск
+# #  zeppelin:
+# #    build:
+# #      context: hadoop/.
+# #      target: zeppelin_hadoop
+# #    env_file:
+# #      - ./hadoop.env
+# #    ports:
+# #      - 8080:8080
+# #    volumes:
+# #      - ./hadoop_conf/etc:/opt/hadoop/etc
+# #      - ./hive_conf:/opt/hive/conf
+# #    command: ["bash", "/opt/zeppelin/bin/zeppelin.sh"]
 
 networks:
   default:

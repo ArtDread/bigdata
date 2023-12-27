@@ -26,6 +26,8 @@ RUN ln -sf /opt/hadoop-3.3.6 /opt/hadoop
 RUN apt-get update -y \
     && apt-get install -y python3-pip
 
+RUN pip3 install pyspark numpy pandas pyarrow scikit-learn
+
 RUN mkdir -p /tmp/hadoop-hadoop
 
 WORKDIR /opt/hadoop
